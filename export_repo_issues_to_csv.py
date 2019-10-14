@@ -19,18 +19,13 @@ AUTH = (GITHUB_USER, GITHUB_PASSWORD)
 
 def write_issues(response):
     "output a list of issues to csv"
-    #print(r.json())
     if not r.status_code == 200:
         raise Exception(r.status_code)
     for issue in r.json():
-        #labels = issue['labels']
-        #for label in labels:
-        #if label['name'] == "Client Requested":
         csvout.writerow([issue['number'], issue['url'], issue['state'], issue['title'], issue['body'], issue['created_at'], issue['updated_at'], issue['closed_at']])
 
 
 r = requests.get(ISSUES_FOR_REPO_URL, auth=AUTH)
-#print(r.content)
 csvfile = '%s-issues.csv' % (REPO.replace('/', '-'))
 f = open(csvfile, 'w', encoding='utf-8')
 csvout = csv.writer(f)
@@ -45,12 +40,9 @@ while (1):
                 [link.split(';') for link in
                     r.headers['link'].split(',')]])
                     
-        #while 'last' in pages and 'next' in pages:
-            #print(r.headers['link'])
         print('page %i\nlink'%page,pages['next'])
         page = page +1
         r = requests.get(pages['next'], auth=AUTH)
-        #print(r.headers)
         write_issues(r)
         if pages['next'] == pages['last']:
             break
