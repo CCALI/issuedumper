@@ -6,7 +6,13 @@ from a repository that username has access to. Supports Github API v3.
 """
 import csv
 import requests
+import configparser
 
+config = configparser.ConfigParser()
+config.read('./pass.ini')
+GITHUB_USER = config['credentials']['GITHUB_USER']
+GITHUB_PASSWORD = config['credentials']['GITHUB_PASSWORD']
+REPO = config['repo']['REPO']  # format is username/repo
 
 ISSUES_FOR_REPO_URL = 'https://api.github.com/repos/%s/issues?state=all' % REPO
 AUTH = (GITHUB_USER, GITHUB_PASSWORD)
