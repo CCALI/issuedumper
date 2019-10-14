@@ -1,0 +1,7 @@
+[credentials]
+GITHUB_USER=YOURUSERNAME
+GITHUB_PASSWORD=YOURPASSWORD
+
+[repo]
+REPO=ORGANIZATION/REPO
+# format is username/repo
